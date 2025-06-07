@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Curso | Academia Científica</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Mismo CSS que la página principal -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="course.css"> <!-- CSS específico para esta página -->
+</head>
+<body>
+    <!-- Mismo header que la página principal -->
+    <header>
+        <div class="header-content-course">
+            <h1>Academia Científica</h1>
+            <p>Cursos universitarios de Física y Matemáticas</p>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html#courses-container">Cursos</a></li>
+                <li><a href="index.html#about">Sobre Nosotros</a></li>
+                <li><a href="index.html#contact">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="course-main">
+        <!-- Contenedor flexible para menú y contenido -->
+        <div class="course-container">
+            <!-- Menú lateral (30% ancho) -->
+            <aside class="course-menu">
+                <h2>Temario del Curso</h2>
+                <ul class="lessons-list">
+                    <!-- Las clases se generarán con JS -->
+                </ul>
+            </aside>
+
+            <!-- Contenido principal (70% ancho) -->
+            <section class="course-content">
+                <div class="video-container">
+                    <iframe 
+                        src="https://www.youtube.com/embed/VIDEO_ID" 
+                        frameborder="0" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="lesson-info">
+                    <h2 id="current-lesson-title">Introducción al Curso</h2>
+                    <p id="current-lesson-desc">Selecciona una clase del menú para comenzar.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Mismo footer que la página principal -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Academia Científica. Todos los derechos reservados.</p>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="course.js"></script> <!-- JS específico para esta página -->
+</body>
+</html>
