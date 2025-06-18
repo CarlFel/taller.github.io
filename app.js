@@ -75,7 +75,7 @@ const courses = [
         title: "Termodinámica",
         description: "Técnicas computacionales para resolver problemas matemáticos complejos.",
         image: "https://images.unsplash.com/photo-1453733190371-0a9bedd82893?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        topics: ["Error numérico", "Interpolación", "Diferenciación e integración numérica", "Resolución de EDO"],
+        topics: ["Equilibrio Térmico", "Primera Ley", "Entropía y Segunda Ley", "Teorema de Carathéodory, Radiación"],
         level: "Avanzado",
         duration: "10 semanas",
         professor: "Dr. Boltzmann"
