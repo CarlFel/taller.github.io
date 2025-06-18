@@ -8,7 +8,7 @@ const courses = [
         topics: ["Límites y continuidad", "Derivadas y sus aplicaciones", "Teoremas fundamentales"],
         level: "Intermedio",
         duration: "8 semanas",
-        professor: "Dr. Sr. Joaquin 'sharkie' Saldaño"
+        professor: "Joaquin Saldaño"
     },
     {
         id: 2,
@@ -18,7 +18,7 @@ const courses = [
         topics: ["Integrales indefinidas", "Técnicas de integración", "Aplicaciones de la integral"],
         level: "Intermedio",
         duration: "10 semanas",
-        professor: "Dra. Doña Pía Barria"
+        professor: "Pía Barria"
     },
     {
         id: 3,
@@ -28,7 +28,7 @@ const courses = [
         topics: ["Funciones multivariables", "Derivadas parciales", "Integrales múltiples", "Teoremas de Green, Stokes y Gauss"],
         level: "Avanzado",
         duration: "12 semanas",
-        professor: "Dr. Sr. Lacio California"
+        professor: "Lacio California"
     },
     {
         id: 4,
@@ -38,7 +38,7 @@ const courses = [
         topics: ["Cinemática", "Leyes de Newton", "Trabajo y energía", "Momento lineal y angular"],
         level: "Principiante",
         duration: "10 semanas",
-        professor: "Dra. Pia Barria"
+        professor: "Pia Barria"
     },
     {
         id: 5,
@@ -48,7 +48,7 @@ const courses = [
         topics: ["Espacios vectoriales", "Transformaciones lineales", "Valores y vectores propios", "Aplicaciones"],
         level: "Intermedio",
         duration: "8 semanas",
-        professor: "Dr. Sr. Mauro 'Vienesa podrida ' Jelvez"
+        professor: "Mauro Jelvez"
     },
     {
         id: 6,
@@ -58,7 +58,7 @@ const courses = [
         topics: ["EDO de primer orden", "EDO lineales de orden superior", "Sistemas de EDO", "Transformada de Laplace"],
         level: "Avanzado",
         duration: "12 semanas",
-        professor: "Dr. Sharkie"
+        professor: "Carlos Pincheira"
     },
     {
         id: 7,
@@ -68,7 +68,7 @@ const courses = [
         topics: ["Electrostática", "Magnetostática", "Ecuaciones de Maxwell", "Ondas electromagnéticas"],
         level: "Intermedio",
         duration: "14 semanas",
-        professor: "Dr. mambe roi"
+        professor: "Martín Ibañez"
     },
     {
         id: 8,
@@ -78,7 +78,7 @@ const courses = [
         topics: ["Error numérico", "Interpolación", "Diferenciación e integración numérica", "Resolución de EDO"],
         level: "Avanzado",
         duration: "10 semanas",
-        professor: "Dra. Boltzmann"
+        professor: "Dr. Boltzmann"
     }
 ];
 
