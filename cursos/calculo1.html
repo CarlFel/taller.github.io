@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculo I - Academia Científica</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- MathJax para LaTeX -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+    <style>
+        .course-container {
+            display: flex;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            gap: 20px;
+        }
+        .lessons-panel {
+            width: 35%;
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .content-panel {
+            width: 65%;
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .lesson-header {
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+        .subtopics-list {
+            list-style: none;
+            padding-left: 15px;
+            display: none;
+        }
+        .lesson-item.expanded .subtopics-list {
+            display: block;
+        }
+        .subtopic-item {
+            padding: 5px;
+            cursor: pointer;
+        }
+        .subtopic-item.active {
+            background: #e3f2fd;
+            border-radius: 4px;
+        }
+        .video-container iframe {
+            width: 100%;
+            height: 350px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <h1>Academia Científica</h1>
+            <p>Cálculo I</p>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Volver al inicio</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="course-container">
+        <!-- Panel izquierdo: Temario -->
+        <aside class="lessons-panel">
+            <h2>Temario</h2>
+            <ul class="lessons-list"></ul>
+        </aside>
+
+        <!-- Panel derecho: Video + contenido -->
+        <section class="content-panel">
+            <div class="video-container">
+                <iframe src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <h2 id="current-lesson-title"></h2>
+            <p id="current-lesson-desc"></p>
+            <div id="latex-content"></div>
+        </section>
+    </main>
+
+    <script>
+        // Datos del curso
+        const courseData = {
+            id:1,
+            title: "Cálculo I",
+            lessons: [
+                {
+                    id: 1,
+                    title: "Funciones",
+                    duration: "25 min",
+                    videoId: "NCY6cetm2Jg",
+                    description: "Definiendo conceptos básicos y necesarios de funciones y ecuaciones.",
+                    subtopics: [
+                        { title: "Definición de función", duration: "8 min", latex: "f: X \\to Y" },
+                        { title: "Dominio y rango", duration: "10 min", latex: "\\text{Dominio: } D_f, \\quad \\text{Rango: } R_f" },
+                        { title: "Tipos de funciones", duration: "7 min", latex: "f(x) = ax + b" }
+                    ]
+                },
+                {
+                    id: 2,
+                    title: "Límites y continuidad",
+                    duration: "35 min",
+                    videoId: "VIDEO_ID_2",
+                    description: "Definiendo el concepto de límite y continuidad.",
+                    subtopics: [
+                        { title: "Definición de límite", duration: "8 min", latex: "\\lim_{x \\to a} f(x) = L" },
+                        { title: "Límites laterales", duration: "10 min", latex: "\\lim_{x \\to a^-} f(x) \\quad \\lim_{x \\to a^+} f(x)" },
+                        { title: "Continuidad", duration: "7 min", latex: "f \\text{ continua en } a \\iff \\lim_{x \\to a} f(x) = f(a)" }
+                    ]
+                }
+            ]
+        };
+
+        function renderLessons() {
+            const lessonsList = document.querySelector('.lessons-list');
+            lessonsList.innerHTML = '';
+
+            courseData.lessons.forEach(lesson => {
+                const lessonItem = document.createElement('li');
+                lessonItem.className = 'lesson-item';
+                
+                const lessonHeader = document.createElement('div');
+                lessonHeader.className = 'lesson-header';
+                lessonHeader.innerHTML = `
+                    <span class="lesson-title">${lesson.title}</span>
+                    <span class="lesson-duration">${lesson.duration}</span>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                `;
+                
+                const subtopicsList = document.createElement('ul');
+                subtopicsList.className = 'subtopics-list';
+
+                lesson.subtopics.forEach(subtopic => {
+                    const subtopicItem = document.createElement('li');
+                    subtopicItem.className = 'subtopic-item';
+                    subtopicItem.innerHTML = `
+                        <span class="subtopic-title">${subtopic.title}</span>
+                        <span class="subtopic-duration">${subtopic.duration}</span>
+                    `;
+                    subtopicItem.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        document.querySelectorAll('.subtopic-item').forEach(item => item.classList.remove('active'));
+                        subtopicItem.classList.add('active');
+                        loadSubtopicContent(lesson, subtopic);
+                    });
+                    subtopicsList.appendChild(subtopicItem);
+                });
+
+                lessonHeader.addEventListener('click', () => {
+                    lessonItem.classList.toggle('expanded');
+                    const icon = lessonHeader.querySelector('.toggle-icon');
+                    icon.classList.toggle('fa-chevron-down');
+                    icon.classList.toggle('fa-chevron-up');
+                });
+
+                lessonItem.appendChild(lessonHeader);
+                lessonItem.appendChild(subtopicsList);
+                lessonsList.appendChild(lessonItem);
+            });
+        }
+
+        function loadSubtopicContent(lesson, subtopic) {
+            const videoContainer = document.querySelector('.video-container iframe');
+            const lessonTitle = document.getElementById('current-lesson-title');
+            const lessonDesc = document.getElementById('current-lesson-desc');
+            const latexContainer = document.getElementById('latex-content');
+            
+            videoContainer.src = `https://www.youtube.com/embed/${lesson.videoId}?autoplay=1`;
+            lessonTitle.textContent = `${lesson.title} - ${subtopic.title}`;
+            lessonDesc.textContent = lesson.description;
+            latexContainer.innerHTML = `\\(${subtopic.latex}\\)`;
+            MathJax.typesetPromise();
+        }
+
+        function loadLesson(lesson) {
+            const videoContainer = document.querySelector('.video-container iframe');
+            const lessonTitle = document.getElementById('current-lesson-title');
+            const lessonDesc = document.getElementById('current-lesson-desc');
+            const latexContainer = document.getElementById('latex-content');
+
+            videoContainer.src = `https://www.youtube.com/embed/${lesson.videoId}?autoplay=1`;
+            lessonTitle.textContent = lesson.title;
+            lessonDesc.textContent = lesson.description;
+            latexContainer.innerHTML = '';
+            MathJax.typesetPromise();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderLessons();
+            if (courseData.lessons.length > 0) {
+                loadLesson(courseData.lessons[0]);
+            }
+        });
+    </script>
+</body>
+</html>
+

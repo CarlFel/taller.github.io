@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electromagnetismo - Academia Científica</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- MathJax para LaTeX -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+    <style>
+        .course-container {
+            display: flex;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            gap: 20px;
+        }
+        .lessons-panel {
+            width: 35%;
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .content-panel {
+            width: 65%;
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .lesson-header {
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+        .subtopics-list {
+            list-style: none;
+            padding-left: 15px;
+            display: none;
+        }
+        .lesson-item.expanded .subtopics-list {
+            display: block;
+        }
+        .subtopic-item {
+            padding: 5px;
+            cursor: pointer;
+        }
+        .subtopic-item.active {
+            background: #e3f2fd;
+            border-radius: 4px;
+        }
+        .video-container iframe {
+            width: 100%;
+            height: 350px;
+            border-radius: 8px;
+        }
+        #current-lesson-desc {
+            white-space: pre-line;
+        }
+        .MathJax {
+            color: inherit !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <h1>Academia Científica</h1>
+            <p>Electromagnetismo</p>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Volver al inicio</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="course-container">
+        <!-- Panel izquierdo: Temario -->
+        <aside class="lessons-panel">
+            <h2>Temario</h2>
+            <ul class="lessons-list">
+                <!-- Las lecciones se generarán dinámicamente con JavaScript -->
+            </ul>
+        </aside>
+
+        <!-- Panel derecho: Video + contenido -->
+        <section class="content-panel">
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/VIDEO_ID_1" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <h2 id="current-lesson-title">Análisis Vectorial</h2>
+            <div id="current-lesson-desc">
+                Introducción al análisis vectorial para electromagnetismo...
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Datos del curso
+        const courseData = {
+            id: 2,
+            title: "Electromagnetismo",
+            lessons: [
+                {
+                    id: 1,
+                    title: "Análisis Vectorial",
+                    duration: "45 min",
+                    videoId: "VIDEO_ID_1",
+                    description: "Fundamentos matemáticos para el electromagnetismo",
+                    subtopics: [
+                        {
+                            title: "Álgebra de Vectores",
+                            duration: "15 min",
+                            description: `<h3>Álgebra de Vectores</h3>
+                            <p><strong>Operaciones básicas:</strong></p>
+                            \\[
+                            \\mathbf{A} + \\mathbf{B} = (A_x + B_x)\\hat{x} + (A_y + B_y)\\hat{y} + (A_z + B_z)\\hat{z}
+                            \\]
+                            \\[
+                            \\mathbf{A} \\cdot \\mathbf{B} = A_xB_x + A_yB_y + A_zB_z = |\\mathbf{A}||\\mathbf{B}|\\cos\\theta
+                            \\]
+                            \\[
+                            \\mathbf{A} \\times \\mathbf{B} = \\begin{vmatrix}
+                            \\hat{x} & \\hat{y} & \\hat{z} \\\\
+                            A_x & A_y & A_z \\\\
+                            B_x & B_y & B_z
+                            \\end{vmatrix}
+                            \\]
+
+                            <p><strong>Identidades clave:</strong></p>
+                            \\[
+                            \\mathbf{A} \\times (\\mathbf{B} \\times \\mathbf{C}) = \\mathbf{B}(\\mathbf{A} \\cdot \\mathbf{C}) - \\mathbf{C}(\\mathbf{A} \\cdot \\mathbf{B})
+                            \\]
+                            \\[
+                            \\nabla \\times (\\nabla \\phi) = 0
+                            \\]
+                            \\[
+                            \\nabla \\cdot (\\nabla \\times \\mathbf{A}) = 0
+                            \\]`
+                        },
+                        {
+                            title: "Cálculo Diferencial Vectorial",
+                            duration: "15 min",
+                            description: `<h3>Cálculo Diferencial Vectorial</h3>
+                            <p><strong>Gradiente:</strong></p>
+                            \\[
+                            \\nabla \\phi = \\frac{\\partial \\phi}{\\partial x}\\hat{x} + \\frac{\\partial \\phi}{\\partial y}\\hat{y} + \\frac{\\partial \\phi}{\\partial z}\\hat{z}
+                            \\]
+
+                            <p><strong>Divergencia:</strong></p>
+                            \\[
+                            \\nabla \\cdot \\mathbf{A} = \\frac{\\partial A_x}{\\partial x} + \\frac{\\partial A_y}{\\partial y} + \\frac{\\partial A_z}{\\partial z}
+                            \\]
+
+                            <p><strong>Rotacional:</strong></p>
+                            \\[
+                            \\nabla \\times \\mathbf{A} = \\left(\\frac{\\partial A_z}{\\partial y} - \\frac{\\partial A_y}{\\partial z}\\right)\\hat{x} + \\left(\\frac{\\partial A_x}{\\partial z} - \\frac{\\partial A_z}{\\partial x}\\right)\\hat{y} + \\left(\\frac{\\partial A_y}{\\partial x} - \\frac{\\partial A_x}{\\partial y}\\right)\\hat{z}
+                            \\]`
+                        },
+                        {
+                            title: "Cálculo Integral Vectorial",
+                            duration: "15 min",
+                            description: `<h3>Cálculo Integral Vectorial</h3>
+                            <p><strong>Teorema de la Divergencia (Gauss):</strong></p>
+                            \\[
+                            \\int_V (\\nabla \\cdot \\mathbf{A}) dV = \\oint_S \\mathbf{A} \\cdot d\\mathbf{S}
+                            \\]
+
+                            <p><strong>Teorema de Stokes:</strong></p>
+                            \\[
+                            \\int_S (\\nabla \\times \\mathbf{A}) \\cdot d\\mathbf{S} = \\oint_C \\mathbf{A} \\cdot d\\mathbf{l}
+                            \\]
+
+                            <p><strong>Teorema del Gradiente:</strong></p>
+                            \\[
+                            \\int_V \\nabla \\phi dV = \\oint_S \\phi d\\mathbf{S}
+                            \\]`
+                        }
+                    ]
+                },
+                {
+                    id: 2,
+                    title: "Electrostática",
+                    duration: "60 min",
+                    videoId: "VIDEO_ID_2",
+                    description: "Fundamentos de la electrostática y campo eléctrico",
+                    subtopics: [
+                        {
+                            title: "Campo Eléctrico",
+                            duration: "20 min",
+                            description: `<h3>Campo Eléctrico</h3>
+                            <p><strong>Definición:</strong></p>
+                            \\[
+                            \\mathbf{E} = \\lim_{q\\to 0} \\frac{\\mathbf{F}}{q}
+                            \\]
+                            <p><strong>Principio de superposición:</strong> \\(\\mathbf{E}_{\\text{total}} = \\sum_i \\mathbf{E}_i\\)</p>
+
+                            <h4>Ley de Coulomb</h4>
+                            \\[
+                            \\mathbf{F} = \\frac{1}{4\\pi\\epsilon_0} \\frac{q_1 q_2}{r^2} \\hat{r} \\quad \\text{y} \\quad \\mathbf{E} = \\frac{1}{4\\pi\\epsilon_0} \\frac{q}{r^2} \\hat{r}
+                            \\]
+
+                            <h4>Distribuciones de Carga</h4>
+                            <p>Para \\(N\\) cargas puntuales:</p>
+                            \\[
+                            \\mathbf{E}(\\mathbf{r}) = \\frac{1}{4\\pi\\epsilon_0} \\sum_{i=1}^N \\frac{q_i}{|\\mathbf{r} - \\mathbf{r}_i|^2} \\hat{R}_i
+                            \\]
+                            <p>Para distribuciones continuas:</p>
+                            \\[
+                            \\mathbf{E}(\\mathbf{r}) = \\frac{1}{4\\pi\\epsilon_0} \\int \\frac{\\rho(\\mathbf{r}')}{|\\mathbf{r} - \\mathbf{r}'|^2} \\hat{R} d\\tau'
+                            \\]
+
+                            <h4>Campos característicos</h4>
+                            <p>Línea infinita:</p>
+                            \\[
+                            \\mathbf{E} = \\frac{\\lambda}{2\\pi\\epsilon_0 \\rho} \\hat{\\rho}
+                            \\]
+                            <p>Plano infinito:</p>
+                            \\[
+                            \\mathbf{E} = \\frac{\\sigma}{2\\epsilon_0} \\hat{n}
+                            \\]`
+                        },
+                        {
+                            title: "Ley de Gauss",
+                            duration: "20 min",
+                            description: `<h3>Ley de Gauss</h3>
+                            <p><strong>Flujo Eléctrico:</strong></p>
+                            \\[
+                            \\Phi_E = \\int_S \\mathbf{E} \\cdot d\\mathbf{S} \\quad \\text{(Unidades: V·m)}
+                            \\]
+
+                            <p><strong>Forma integral:</strong></p>
+                            \\[
+                            \\oint_S \\mathbf{E} \\cdot d\\mathbf{S} = \\frac{Q_{\\text{enc}}}{\\epsilon_0}
+                            \\]
+
+                            <p><strong>Forma diferencial:</strong></p>
+                            \\[
+                            \\nabla \\cdot \\mathbf{E} = \\frac{\\rho}{\\epsilon_0}
+                            \\]
+
+                            <p><strong>Rotor de \\(\\mathbf{E}\\):</strong></p>
+                            \\[
+                            \\nabla \\times \\mathbf{E} = 0 \\quad \\text{(Campo conservativo)}
+                            \\]`
+                        },
+                        {
+                            title: "Potencial Eléctrico",
+                            duration: "20 min",
+                            description: `<h3>Potencial Eléctrico</h3>
+                            <p><strong>Definición:</strong></p>
+                            \\[
+                            V(\\mathbf{r}) = -\\int_{\\mathcal{O}}^{\\mathbf{r}} \\mathbf{E} \\cdot d\\mathbf{l} \\quad \\text{y} \\quad \\mathbf{E} = -\\nabla V
+                            \\]
+
+                            <h4>Ecuaciones de Poisson y Laplace</h4>
+                            \\[
+                            \\nabla^2 V = -\\frac{\\rho}{\\epsilon_0} \\quad \\text{y} \\quad \\nabla^2 V = 0 \\quad (\\text{en regiones sin carga})
+                            \\]
+
+                            <h4>Potencial de una Distribución</h4>
+                            \\[
+                            V(\\mathbf{r}) = \\frac{1}{4\\pi\\epsilon_0} \\int \\frac{\\rho(\\mathbf{r}')}{|\\mathbf{r} - \\mathbf{r}'|} d\\tau'
+                            \\]
+
+                            <h4>Condiciones de Contorno</h4>
+                            <p>En interfases:</p>
+                            \\[
+                            V_1 = V_2 \\quad \\text{y} \\quad \\epsilon_1 \\frac{\\partial V_1}{\\partial n} - \\epsilon_2 \\frac{\\partial V_2}{\\partial n} = \\sigma_f
+                            \\]`
+                        }
+                    ]
+                },
+                {
+                    id: 3,
+                    title: "Potenciales",
+                    duration: "50 min",
+                    videoId: "VIDEO_ID_3",
+                    description: "Métodos para resolver problemas de potencial",
+                    subtopics: [
+                        {
+                            title: "Ecuación de Laplace",
+                            duration: "20 min",
+                            description: `<h3>Ecuación de Laplace</h3>
+                            <p>Forma general en electrostática:</p>
+                            \\[ \\nabla^2 V = 0 \\quad \\text{(Regiones sin carga libre)} \\]
+
+                            <h4>1 Dimensión</h4>
+                            \\[ \\frac{d^2V}{dx^2} = 0 \\Rightarrow V(x) = mx + b \\]
+
+                            <h4>2 Dimensiones</h4>
+                            \\[ \\frac{\\partial^2 V}{\\partial x^2} + \\frac{\\partial^2 V}{\\partial y^2} = 0 \\]
+
+                            <h4>3 Dimensiones</h4>
+                            \\[ \\nabla^2 V = \\frac{1}{r^2}\\frac{\\partial}{\\partial r}\\left(r^2\\frac{\\partial V}{\\partial r}\\right) + \\frac{1}{r^2\\sin\\theta}\\frac{\\partial}{\\partial \\theta}\\left(\\sin\\theta\\frac{\\partial V}{\\partial \\theta}\\right) + \\frac{1}{r^2\\sin^2\\theta}\\frac{\\partial^2 V}{\\partial \\phi^2} = 0 \\]
+
+                            <h4>Teorema de Unicidad</h4>
+                            <p>La solución es única si:</p>
+                            <ul>
+                                <li>Se especifica \\(V\\) en todas las superficies (Dirichlet)</li>
+                                <li>O se especifica \\(\\partial V/\\partial n\\) + \\(V\\) constante en alguna superficie (Neumann)</li>
+                            </ul>`
+                        },
+                        {
+                            title: "Método de Imágenes",
+                            duration: "15 min",
+                            description: `<h3>Método de Imágenes</h3>
+                            <h4>Carga puntual sobre plano conductor</h4>
+                            \\[
+                            V(x,y,z) = \\frac{1}{4\\pi\\epsilon_0}\\left[\\frac{q}{\\sqrt{x^2+y^2+(z-d)^2}} - \\frac{q}{\\sqrt{x^2+y^2+(z+d)^2}}\\right]
+                            \\]
+                            <p>Imagen: carga \\(-q\\) en \\(z=-d\\)</p>
+
+                            <h4>Cargas Superficiales Inducidas</h4>
+                            \\[ \\sigma = -\\epsilon_0 \\left.\\frac{\\partial V}{\\partial n}\\right|_{\\text{superficie}} \\]
+                            <p>Para carga sobre plano:</p>
+                            \\[ \\sigma(x,y) = \\frac{-qd}{2\\pi(x^2 + y^2 + d^2)^{3/2}} \\]
+
+                            <h4>Fuerza y Energía</h4>
+                            <p>Fuerza sobre la carga real:</p>
+                            \\[ F = \\frac{1}{4\\pi\\epsilon_0}\\frac{q^2}{(2d)^2} \\]
+                            <p>Energía del sistema:</p>
+                            \\[ U = -\\frac{1}{4\\pi\\epsilon_0}\\frac{q^2}{2d} \\]`
+                        },
+                        {
+                            title: "Separación de Variables",
+                            duration: "15 min",
+                            description: `<h3>Separación de Variables</h3>
+                            <h4>Coordenadas Cartesianas</h4>
+                            \\[ V(x,y,z) = X(x)Y(y)Z(z) \\]
+                            <p>Ecuación resultante:</p>
+                            \\[ \\frac{1}{X}\\frac{d^2X}{dx^2} + \\frac{1}{Y}\\frac{d^2Y}{dy^2} + \\frac{1}{Z}\\frac{d^2Z}{dz^2} = 0 \\]
+
+                            <h4>Coordenadas Cilíndricas</h4>
+                            \\[ V(\\rho,\\phi,z) = R(\\rho)\\Phi(\\phi)Z(z) \\]
+                            <p>Soluciones generales:</p>
+                            \\[ \\Phi(\\phi) = e^{\\pm im\\phi}, \\quad Z(z) = e^{\\pm kz} \\]
+                            \\[ R(\\rho) = \\begin{cases}
+                            J_m(k\\rho) & \\text{(Bessel)} \\\\
+                            N_m(k\\rho) & \\text{(Neumann)}
+                            \\end{cases} \\]
+
+                            <h4>Coordenadas Esféricas</h4>
+                            \\[ V(r,\\theta,\\phi) = R(r)\\Theta(\\theta)\\Phi(\\phi) \\]
+                            <p>Armónicos esféricos:</p>
+                            \\[ Y_l^m(\\theta,\\phi) = P_l^m(\\cos\\theta)e^{im\\phi} \\]
+                            <p>Solución radial:</p>
+                            \\[ R(r) = Ar^l + \\frac{B}{r^{l+1}} \\]`
+                        }
+                    ]
+                },
+                {
+                    id: 4,
+                    title: "Campos en la Materia",
+                    duration: "40 min",
+                    videoId: "VIDEO_ID_4",
+                    description: "Comportamiento de campos en materiales dieléctricos",
+                    subtopics: [
+                        {
+                            title: "Polarización",
+                            duration: "15 min",
+                            description: `<h3>Polarización</h3>
+                            <p>Materiales no conductores que se polarizan bajo campo eléctrico:</p>
+                            <ul>
+                                <li><strong>Deformación:</strong> Distorsión de nubes electrónicas (dipolos inducidos)</li>
+                                <li><strong>Orientación:</strong> Alineamiento de dipolos permanentes</li>
+                            </ul>
+
+                            <h4>Dipolos Inducidos</h4>
+                            \\[ \\mathbf{p} = \\alpha \\mathbf{E}_{\\text{local}} \\]
+                            <p>\\(\\alpha\\) = polarizabilidad atómica/molecular (unidades: C·m²/V)</p>
+
+                            <h4>Polarización</h4>
+                            \\[ \\mathbf{P} = \\text{Densidad de momento dipolar} = \\lim_{\\Delta V \\to 0} \\frac{\\sum \\mathbf{p}_i}{\\Delta V} \\]
+                            <p>Relación con campo aplicado:</p>
+                            \\[ \\mathbf{P} = \\epsilon_0 \\chi_e \\mathbf{E} \\quad (\\text{Lineal}) \\]
+                            <p>\\(\\chi_e\\) = Susceptibilidad eléctrica (adimensional)</p>`
+                        },
+                        {
+                            title: "Dieléctricos",
+                            duration: "15 min",
+                            description: `<h3>Dieléctricos</h3>
+                            <h4>Bound Charges</h4>
+                            <p>Densidad volumétrica:</p>
+                            \\[ \\rho_b = -\\nabla \\cdot \\mathbf{P} \\]
+                            <p>Densidad superficial:</p>
+                            \\[ \\sigma_b = \\mathbf{P} \\cdot \\hat{n} \\]
+
+                            <h4>Campo Eléctrico en Dieléctricos</h4>
+                            \\[ \\mathbf{E} = \\mathbf{E}_{\\text{ext}} + \\mathbf{E}_{\\text{pol}}} \\]
+                            <p>Campo local (Lorentz):</p>
+                            \\[ \\mathbf{E}_{\\text{local}} = \\mathbf{E} + \\frac{\\mathbf{P}}{3\\epsilon_0} \\]
+
+                            <h4>Ley de Gauss en Dieléctricos</h4>
+                            \\[ \\nabla \\cdot \\mathbf{D} = \\rho_f \\quad \\text{y} \\quad \\oint_S \\mathbf{D} \\cdot d\\mathbf{S} = Q_{f,\\text{enc}}} \\]
+                            \\[ \\mathbf{D} = \\epsilon_0 \\mathbf{E} + \\mathbf{P} = \\epsilon \\mathbf{E} \\quad (\\text{Lineal}) \\]`
+                        },
+                        {
+                            title: "Desplazamiento Eléctrico",
+                            duration: "10 min",
+                            description: `<h3>Desplazamiento Eléctrico</h3>
+                            <h4>Susceptibilidad y Permitividad</h4>
+                            \\[ \\chi_e = \\frac{\\mathbf{P}}{\\epsilon_0 \\mathbf{E}}, \\quad \\epsilon = \\epsilon_0(1 + \\chi_e), \\quad \\epsilon_r = 1 + \\chi_e \\]
+
+                            <h4>Constante Dieléctrica</h4>
+                            <p>Definición: \\(\\kappa = \\epsilon_r = \\epsilon/\\epsilon_0\\)</p>
+                            <p>Ejemplos:</p>
+                            <ul>
+                                <li>Aire: \\(\\kappa \\approx 1.0006\\)</li>
+                                <li>Agua: \\(\\kappa \\approx 80\\) (a 20°C)</li>
+                                <li>Vidrio: \\(\\kappa \\approx 5-10\\)</li>
+                            </ul>
+
+                            <h4>Condiciones en Interfases</h4>
+                            \\[ D_{1\\perp} = D_{2\\perp}, \\quad E_{1\\parallel} = E_{2\\parallel} \\]`
+                        }
+                    ]
+                },
+                {
+                    id: 5,
+                    title: "Magnetostática",
+                    duration: "30 min",
+                    videoId: "VIDEO_ID_5",
+                    description: "Fundamentos de la magnetostática",
+                    subtopics: [
+                        {
+                            title: "Ley de Biot-Savart",
+                            duration: "10 min",
+                            description: `<h3>Ley de Biot-Savart</h3>
+                            \\[ \\mathbf{B} = \\frac{\\mu_0}{4\\pi} \\int \\frac{I d\\mathbf{l}' \\times \\hat{R}}{R^2} \\]
+
+                            <p>Describe el campo magnético generado por una corriente estacionaria.</p>`
+                        },
+                        {
+                            title: "Ecuaciones de Maxwell",
+                            duration: "10 min",
+                            description: `<h3>Ecuaciones de Maxwell para magnetostática</h3>
+                            \\[ \\nabla \\cdot \\mathbf{B} = 0 \\quad \\text{y} \\quad \\nabla \\times \\mathbf{B} = \\mu_0 \\mathbf{J} \\]
+
+                            <p>Primera ecuación indica que no existen monopolos magnéticos.</p>
+                            <p>Segunda ecuación relaciona el campo magnético con las corrientes que lo generan.</p>`
+                        },
+                        {
+                            title: "Potencial Vectorial",
+                            duration: "10 min",
+                            description: `<h3>Potencial Vectorial</h3>
+                            \\[ \\mathbf{B} = \\nabla \\times \\mathbf{A} \\quad \\text{con} \\quad \\nabla^2 \\mathbf{A} = -\\mu_0 \\mathbf{J} \\]
+
+                            <p>El potencial vectorial \\(\\mathbf{A}\\) es útil para calcular campos magnéticos en problemas con simetría.</p>`
+                        }
+                    ]
+                },
+                {
+                    id: 6,
+                    title: "Electrodinámica",
+                    duration: "25 min",
+                    videoId: "VIDEO_ID_6",
+                    description: "Ecuaciones completas del electromagnetismo",
+                    subtopics: [
+                        {
+                            title: "Ecuaciones de Maxwell",
+                            duration: "10 min",
+                            description: `<h3>Ecuaciones de Maxwell completas</h3>
+                            \\[ \\nabla \\cdot \\mathbf{E} = \\frac{\\rho}{\\epsilon_0} \\]
+                            \\[ \\nabla \\cdot \\mathbf{B} = 0 \\]
+                            \\[ \\nabla \\times \\mathbf{E} = -\\frac{\\partial \\mathbf{B}}{\\partial t} \\]
+                            \\[ \\nabla \\times \\mathbf{B} = \\mu_0 \\mathbf{J} + \\mu_0 \\epsilon_0 \\frac{\\partial \\mathbf{E}}{\\partial t} \\]
+
+                            <p>Estas ecuaciones describen completamente los fenómenos electromagnéticos.</p>`
+                        },
+                        {
+                            title: "Potenciales Retardados",
+                            duration: "15 min",
+                            description: `<h3>Potenciales Retardados</h3>
+                            \\[ V(\\mathbf{r}, t) = \\frac{1}{4\\pi\\epsilon_0} \\int \\frac{\\rho(\\mathbf{r}', t_r)}{|\\mathbf{r}-\\mathbf{r}'|} d\\tau' \\]
+                            \\[ \\mathbf{A}(\\mathbf{r}, t) = \\frac{\\mu_0}{4\\pi} \\int \\frac{\\mathbf{J}(\\mathbf{r}', t_r)}{|\\mathbf{r}-\\mathbf{r}'|} d\\tau' \\]
+
+                            <p>Donde \\(t_r = t - |\\mathbf{r}-\\mathbf{r}'|/c\\) es el tiempo retardado, que tiene en cuenta el tiempo que tarda la información en propagarse.</p>`
+                        }
+                    ]
+                }
+            ]
+        };
+
+        function renderLessons() {
+            const lessonsList = document.querySelector('.lessons-list');
+            lessonsList.innerHTML = '';
+
+            courseData.lessons.forEach(lesson => {
+                const lessonItem = document.createElement('li');
+                lessonItem.className = 'lesson-item';
+                
+                const lessonHeader = document.createElement('div');
+                lessonHeader.className = 'lesson-header';
+                lessonHeader.innerHTML = `
+                    <span class="lesson-title">${lesson.title}</span>
+                    <span class="lesson-duration">${lesson.duration}</span>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                `;
+                
+                const subtopicsList = document.createElement('ul');
+                subtopicsList.className = 'subtopics-list';
+
+                lesson.subtopics.forEach(subtopic => {
+                    const subtopicItem = document.createElement('li');
+                    subtopicItem.className = 'subtopic-item';
+                    subtopicItem.innerHTML = `
+                        <span class="subtopic-title">${subtopic.title}</span>
+                        <span class="subtopic-duration">${subtopic.duration}</span>
+                    `;
+                    subtopicItem.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        document.querySelectorAll('.subtopic-item').forEach(item => item.classList.remove('active'));
+                        subtopicItem.classList.add('active');
+                        loadSubtopicContent(lesson, subtopic);
+                    });
+                    subtopicsList.appendChild(subtopicItem);
+                });
+
+                lessonHeader.addEventListener('click', () => {
+                    lessonItem.classList.toggle('expanded');
+                    const icon = lessonHeader.querySelector('.toggle-icon');
+                    icon.classList.toggle('fa-chevron-down');
+                    icon.classList.toggle('fa-chevron-up');
+                });
+
+                lessonItem.appendChild(lessonHeader);
+                lessonItem.appendChild(subtopicsList);
+                lessonsList.appendChild(lessonItem);
+            });
+        }
+
+        function loadSubtopicContent(lesson, subtopic) {
+            const videoContainer = document.querySelector('.video-container iframe');
+            const lessonTitle = document.getElementById('current-lesson-title');
+            const lessonDesc = document.getElementById('current-lesson-desc');
+            
+            videoContainer.src = `https://www.youtube.com/embed/${lesson.videoId}?autoplay=1`;
+            lessonTitle.textContent = `${lesson.title} - ${subtopic.title}`;
+            lessonDesc.innerHTML = subtopic.description;
+            
+            // Forzar el renderizado de MathJax después de cargar el contenido
+            if (window.MathJax) {
+                MathJax.typesetPromise([lessonDesc]).catch(err => console.log('Error al renderizar MathJax:', err));
+            }
+        }
+
+        function loadLesson(lesson) {
+            const videoContainer = document.querySelector('.video-container iframe');
+            const lessonTitle = document.getElementById('current-lesson-title');
+            const lessonDesc = document.getElementById('current-lesson-desc');
+
+            videoContainer.src = `https://www.youtube.com/embed/${lesson.videoId}?autoplay=1`;
+            lessonTitle.textContent = lesson.title;
+            lessonDesc.textContent = lesson.description;
+            
+            if (window.MathJax) {
+                MathJax.typesetPromise([lessonDesc]).catch(err => console.log('Error al renderizar MathJax:', err));
+            }
+        }
+
+        // Esperar a que MathJax esté completamente cargado
+        function waitForMathJax() {
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                renderLessons();
+                if (courseData.lessons.length > 0) {
+                    loadLesson(courseData.lessons[0]);
+                    // Activar el primer subtema del primer tema
+                    const firstSubtopic = document.querySelector('.subtopic-item');
+                    if (firstSubtopic) {
+                        firstSubtopic.classList.add('active');
+                    }
+                }
+            } else {
+                setTimeout(waitForMathJax, 100);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', waitForMathJax);
+    </script>
+</body>
+</html>
